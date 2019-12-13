@@ -102,7 +102,7 @@ $.tale.prototype.alertBox = function (options) {
 };
 
 window.axios.defaults.headers.common = {
-    'X-CSRF-TOKEN': document.head.querySelector("[name=csrf_token]").content,
+    'pf_csrf_token': document.head.querySelector("[name=csrf_token]").content,
     'X-Requested-With': 'XMLHttpRequest'
 };
 
@@ -150,7 +150,7 @@ $.tale.prototype.postWithForm = function (options) {
             return ret.join('');
         }],
         headers: {
-            'X-CSRF-TOKEN': document.head.querySelector("[name=csrf_token]").content,
+            'pf_csrf_token': document.head.querySelector("[name=csrf_token]").content,
             'X-Requested-With': 'XMLHttpRequest',
             'Content-Type': 'application/x-www-form-urlencoded'
         }

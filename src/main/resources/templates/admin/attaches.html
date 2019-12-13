@@ -77,7 +77,7 @@
                         <a :href="'${attachURL()}' + item.fkey" target="_blank">
                             <img v-if="item.ftype == 'image'" class="attach-img" :src="'${attachURL()}' + item.fkey"
                                  :title="item.fname"/>
-                            <img v-if="item.ftype != 'image'" class="attach-img" src="/static/admin/images/attach.png"
+                            <img v-if="item.ftype != 'image'" class="attach-img" src="/blogstatic/images/attach.png"
                                  :title="item.fname"/>
                         </a>
                         <div class="clearfix m-t-10">
@@ -195,7 +195,7 @@
         dictInvalidInputType: '不支持您上传的类型',
         dictMaxFilesExceeded: '您的文件超过' + $.constant().MAX_FILES + '个!',
         headers: {
-            'X-CSRF-TOKEN': document.head.querySelector("[name=csrf_token]").content
+            'pf_csrf_token': document.head.querySelector("[name=csrf_token]").content
         },
         init: function () {
             this.on('queuecomplete', function (files) {

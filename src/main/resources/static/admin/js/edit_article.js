@@ -60,7 +60,7 @@ var vm = new Vue({
                         processData: false,
                         dataType: 'json',
                         headers: {
-                            'X-CSRF-TOKEN': document.head.querySelector("[name=csrf_token]").content
+                            'pf_csrf_token': document.head.querySelector("[name=csrf_token]").content
                         },
                         contentType: false,
                         success: function (result) {
@@ -357,7 +357,7 @@ $(document).ready(function () {
         dictFileTooBig: '您的文件超过10MB!',
         dictInvalidInputType: '不支持您上传的类型',
         headers: {
-            'X-CSRF-TOKEN': document.head.querySelector("[name=csrf_token]").content
+            'pf_csrf_token': document.head.querySelector("[name=csrf_token]").content
         },
         init: function () {
             this.on('success', function (files, result) {

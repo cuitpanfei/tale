@@ -56,7 +56,7 @@ var vm = new Vue({
                         dataType: 'json',
                         contentType: false,
                         headers: {
-                            'X-CSRF-TOKEN': document.head.querySelector("[name=csrf_token]").content
+                            'pf_csrf_token': document.head.querySelector("[name=csrf_token]").content
                         },
                         success: function (result) {
                             tale.hideLoading();
