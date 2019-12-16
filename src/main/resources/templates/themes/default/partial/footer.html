@@ -9,7 +9,7 @@
             <div class="meta-item meta-copyright">
                 <div class="meta-copyright-info">
                     <a href="${site_url()}" class="info-logo">
-                        <img src="/blog/templates/themes/default/static/img/logo.png" alt="${site_title()}">
+                        <img src="${site_url()}/templates/themes/default/static/img/logo.png" alt="${site_title()}">
                     </a>
                     <div class="info-text">
                         <p>一生有所追求.</p>
@@ -168,7 +168,7 @@
         if (key === 13) {
             var q = $(this).val();
             if (q && q !== '') {
-                window.location.href = '/search/' + q;
+                window.location.href = '${site_url()}/search/' + q;
             }
         }
     });

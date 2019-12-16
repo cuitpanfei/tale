@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">CND地址</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="cdnURL" placeholder="CDN地址" />
+                                            <input type="text" class="form-control" name="cdnURL" v-model="options.cdn_url" placeholder="CDN地址" />
                                             <span class="help-block"><small>该地址用于加载博客后台静态资源，不清楚请勿设置。开启公共CDN选项时此配置无效</small></span>
                                         </div>
                                     </div>

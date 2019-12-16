@@ -7,7 +7,7 @@
     <meta content="biezhi" name="author"/>
     <meta content="${_csrf_token}" name="csrf_token"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <link rel="shortcut icon" href="/blogstatic/images/favicon.png"/>
+    <link rel="shortcut icon" href="${cdnURL()}/images/favicon.png"/>
     #if(allow_cloud_CDN() == "true")
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
             <div class="text-center p-t-10" style="margin: 0 auto;">
                 <div class="pull-left" style="padding-left: 10px;">
                     <a href="/admin/index">
-                        <img src="/blogstatic/images/unicorn.png" width="50" height="50"/>
+                        <img src="${cdnURL()}/images/unicorn.png" width="50" height="50"/>
                     </a>
                 </div>
                 <div class="pull-left admin-title" style="padding-left: 10px;">
@@ -66,7 +66,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="${site_url()}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> 预览站点</a></li>
                                 <li><a href="/admin/profile"><i class="fa fa-sun-o"></i> 个人设置</a></li>
-                                <li><a href="/logout"><i class="fa fa-sign-out"></i> 注销</a></li>
+                                <li><a href="${site_url()}/logout"><i class="fa fa-sign-out"></i> 注销</a></li>
                             </ul>
                         </li>
                     </ul>
