@@ -1,15 +1,16 @@
 package com.tale.test;
 
-import com.blade.Blade;
-import com.blade.ioc.annotation.Inject;
-import com.blade.security.web.csrf.CsrfMiddleware;
-import com.blade.test.BladeApplication;
+import java.lang.reflect.Field;
+
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 
-import java.lang.reflect.Field;
+import com.blade.Blade;
+import com.blade.ioc.annotation.Inject;
+import com.blade.security.web.csrf.CsrfMiddleware;
+import com.blade.test.BladeApplication;
 
 @SuppressWarnings("deprecation")
 public class BladeTestRunner extends BlockJUnit4ClassRunner {

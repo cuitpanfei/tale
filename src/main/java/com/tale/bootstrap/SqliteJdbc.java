@@ -1,9 +1,5 @@
 package com.tale.bootstrap;
 
-import com.blade.mvc.Const;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +9,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.stream.Collectors;
+
+import com.blade.mvc.Const;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * SQLite 数据库操作
@@ -61,7 +62,8 @@ public final class SqliteJdbc {
                 String            cp  = SqliteJdbc.class.getClassLoader().getResource("").getPath();
                 InputStreamReader isr = new InputStreamReader(new FileInputStream(cp + "schema.sql"), "UTF-8");
 
-                String sql = new BufferedReader(isr).lines().collect(Collectors.joining("\n"));
+                @SuppressWarnings("resource")
+				String sql = new BufferedReader(isr).lines().collect(Collectors.joining("\n"));
                 int    r   = statement.executeUpdate(sql);
                 log.info("initialize import database - {}", r);
             }

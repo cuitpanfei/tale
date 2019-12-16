@@ -1,16 +1,17 @@
 package com.tale.service;
 
-import com.blade.ioc.annotation.Bean;
-import com.blade.kit.StringKit;
-import com.tale.model.entity.Options;
-import io.github.biezhi.anima.core.AnimaQuery;
+import static io.github.biezhi.anima.Anima.delete;
+import static io.github.biezhi.anima.Anima.select;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.biezhi.anima.Anima.delete;
-import static io.github.biezhi.anima.Anima.select;
+import com.blade.ioc.annotation.Bean;
+import com.blade.kit.StringKit;
+import com.tale.model.entity.Options;
+
+import io.github.biezhi.anima.core.AnimaQuery;
 
 /**
  * 配置Service

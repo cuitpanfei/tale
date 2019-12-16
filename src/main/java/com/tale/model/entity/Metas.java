@@ -4,6 +4,7 @@ import io.github.biezhi.anima.Model;
 import io.github.biezhi.anima.annotation.Ignore;
 import io.github.biezhi.anima.annotation.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 元数据
@@ -11,6 +12,7 @@ import lombok.Data;
  * @author biezhi
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table(name = "t_metas", pk = "mid")
 public class Metas extends Model {
 

@@ -1,8 +1,8 @@
 package com.tale.model.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * Created by biezhi on 2017/2/25.

@@ -1,6 +1,6 @@
 package com.tale.bootstrap;
 
-import com.blade.Blade;
+import static com.tale.bootstrap.TaleConst.CLASSPATH;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -9,7 +9,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static com.tale.bootstrap.TaleConst.CLASSPATH;
+import com.blade.Blade;
 
 
 /**

@@ -1,5 +1,20 @@
 package com.tale.service;
 
+import static com.tale.bootstrap.TaleConst.CLASSPATH;
+import static com.tale.bootstrap.TaleConst.COMMENT_APPROVED;
+import static io.github.biezhi.anima.Anima.select;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.stream.Collectors;
+
 import com.blade.exception.ValidatorException;
 import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Inject;
@@ -9,22 +24,22 @@ import com.blade.kit.EncryptKit;
 import com.blade.kit.StringKit;
 import com.tale.bootstrap.SqliteJdbc;
 import com.tale.bootstrap.TaleConst;
-import com.tale.model.dto.*;
-import com.tale.model.entity.*;
+import com.tale.model.dto.Archive;
+import com.tale.model.dto.BackResponse;
+import com.tale.model.dto.Comment;
+import com.tale.model.dto.Statistics;
+import com.tale.model.dto.Types;
+import com.tale.model.entity.Attach;
+import com.tale.model.entity.Comments;
+import com.tale.model.entity.Contents;
+import com.tale.model.entity.Logs;
+import com.tale.model.entity.Metas;
+import com.tale.model.entity.Users;
 import com.tale.utils.MapCache;
 import com.tale.utils.TaleUtils;
+
 import io.github.biezhi.anima.enums.OrderBy;
 import io.github.biezhi.anima.page.Page;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.tale.bootstrap.TaleConst.CLASSPATH;
-import static com.tale.bootstrap.TaleConst.COMMENT_APPROVED;
-import static io.github.biezhi.anima.Anima.select;
 
 /**
  * 站点Service
@@ -212,8 +227,6 @@ public class SiteService {
             if (!Files.isDirectory(Paths.get(bkPath))) {
                 throw new ValidatorException("请输入一个存在的目录");
             }
-            String bkAttachDir = CLASSPATH + "upload";
-            String bkThemesDir = CLASSPATH + "templates/themes";
 
             String fname = DateKit.toString(new Date(), fmt) + "_" + StringKit.rand(5) + ".zip";
 

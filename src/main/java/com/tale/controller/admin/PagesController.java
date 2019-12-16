@@ -1,5 +1,14 @@
 package com.tale.controller.admin;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.blade.ioc.annotation.Inject;
 import com.blade.kit.JsonKit;
 import com.blade.kit.StringKit;
@@ -16,16 +25,8 @@ import com.tale.service.ContentsService;
 import com.tale.service.MetasService;
 import com.tale.service.OptionsService;
 import com.tale.service.SiteService;
-import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author biezhi
@@ -122,7 +123,8 @@ public class PagesController extends BaseController {
     /**
      * 主题设置页面
      */
-    @GetRoute("theme/setting")
+    @SuppressWarnings("unchecked")
+	@GetRoute("theme/setting")
     public String setting(Request request) {
         String currentTheme = Commons.site_theme();
         String key          = "theme_" + currentTheme + "_options";

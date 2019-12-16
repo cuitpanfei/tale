@@ -13,13 +13,11 @@ import com.tale.controller.BaseController;
 import com.tale.model.entity.Users;
 import com.tale.service.OptionsService;
 import com.tale.service.SiteService;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 后台控制器
  * Created by biezhi on 2017/2/21.
  */
-@Slf4j
 @Path(value = "admin", restful = true)
 public class SystemController extends BaseController {
 
@@ -31,7 +29,7 @@ public class SystemController extends BaseController {
 
     @SysLog("保存个人信息")
     @PostRoute("profile")
-    public RestResponse saveProfile(@Param String screenName, @Param String email) {
+    public RestResponse<?> saveProfile(@Param String screenName, @Param String email) {
         Users users = this.user();
         if (StringKit.isNotBlank(screenName) && StringKit.isNotBlank(email)) {
             Users temp = new Users();
@@ -44,7 +42,7 @@ public class SystemController extends BaseController {
 
     @SysLog("修改登录密码")
     @PostRoute("password")
-    public RestResponse upPwd(@Param String old_password, @Param String password) {
+    public RestResponse<?> upPwd(@Param String old_password, @Param String password) {
         Users users = this.user();
         if (StringKit.isBlank(old_password) || StringKit.isBlank(password)) {
             return RestResponse.fail("请确认信息输入完整");

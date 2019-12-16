@@ -1,7 +1,50 @@
 package com.tale.utils;
 
+import static com.tale.bootstrap.TaleConst.CLASSPATH;
+import static com.tale.bootstrap.TaleConst.ENV_SUPPORT_163_MUSIC;
+import static com.tale.bootstrap.TaleConst.ENV_SUPPORT_GIST;
+import static com.tale.bootstrap.TaleConst.GIST_PREFIX_URL;
+import static com.tale.bootstrap.TaleConst.GIST_REG_PATTERN;
+import static com.tale.bootstrap.TaleConst.GIST_REPLATE_PATTERN;
+import static com.tale.bootstrap.TaleConst.MP3_PREFIX;
+import static com.tale.bootstrap.TaleConst.MUSIC_IFRAME;
+import static com.tale.bootstrap.TaleConst.MUSIC_REG_PATTERN;
+import static com.tale.bootstrap.TaleConst.OPTION_SAFE_REMEMBER_ME;
+import static com.tale.bootstrap.TaleConst.REMEMBER_IN_COOKIE;
+import static com.tale.bootstrap.TaleConst.REMEMBER_TOKEN;
+import static io.github.biezhi.anima.Anima.select;
+import static io.github.biezhi.anima.Anima.update;
+
+import java.awt.Image;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import javax.imageio.ImageIO;
+
+import org.commonmark.Extension;
+import org.commonmark.ext.gfm.tables.TablesExtension;
+import org.commonmark.node.Link;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.AttributeProvider;
+import org.commonmark.renderer.html.HtmlRenderer;
+
+import com.blade.kit.DateKit;
+import com.blade.kit.EncryptKit;
+import com.blade.kit.JsonKit;
+import com.blade.kit.StringKit;
 import com.blade.kit.UUID;
-import com.blade.kit.*;
 import com.blade.mvc.RouteContext;
 import com.blade.mvc.http.Cookie;
 import com.blade.mvc.http.Session;
@@ -17,29 +60,6 @@ import com.tale.model.dto.RememberMe;
 import com.tale.model.entity.Contents;
 import com.tale.model.entity.Options;
 import com.tale.model.entity.Users;
-import org.commonmark.Extension;
-import org.commonmark.ext.gfm.tables.TablesExtension;
-import org.commonmark.node.Link;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.AttributeProvider;
-import org.commonmark.renderer.html.HtmlRenderer;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import static com.tale.bootstrap.TaleConst.*;
-import static io.github.biezhi.anima.Anima.select;
-import static io.github.biezhi.anima.Anima.update;
 
 /**
  * Tale工具类

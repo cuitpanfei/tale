@@ -4,6 +4,7 @@ import io.github.biezhi.anima.Model;
 import io.github.biezhi.anima.annotation.Ignore;
 import io.github.biezhi.anima.annotation.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 文章
@@ -11,6 +12,7 @@ import lombok.Data;
  * @author biezhi
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Table(name = "t_contents", pk = "cid")
 public class Contents extends Model {
 

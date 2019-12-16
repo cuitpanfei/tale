@@ -1,8 +1,8 @@
 package com.tale.model.dto;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 /**
  * 记住我数据结构

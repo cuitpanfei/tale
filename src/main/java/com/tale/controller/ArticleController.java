@@ -1,9 +1,20 @@
 package com.tale.controller;
 
+import static com.tale.bootstrap.TaleConst.COMMENT_APPROVED;
+import static com.tale.bootstrap.TaleConst.COMMENT_NO_AUDIT;
+import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_COMMENT_AUDIT;
+
+import java.net.URLEncoder;
+
 import com.blade.exception.ValidatorException;
 import com.blade.ioc.annotation.Inject;
 import com.blade.kit.StringKit;
-import com.blade.mvc.annotation.*;
+import com.blade.mvc.annotation.GetRoute;
+import com.blade.mvc.annotation.HeaderParam;
+import com.blade.mvc.annotation.JSON;
+import com.blade.mvc.annotation.Path;
+import com.blade.mvc.annotation.PathParam;
+import com.blade.mvc.annotation.PostRoute;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.ui.RestResponse;
@@ -17,13 +28,8 @@ import com.tale.service.CommentsService;
 import com.tale.service.ContentsService;
 import com.tale.service.SiteService;
 import com.tale.validators.CommonValidator;
+
 import lombok.extern.slf4j.Slf4j;
-
-import java.net.URLEncoder;
-
-import static com.tale.bootstrap.TaleConst.COMMENT_APPROVED;
-import static com.tale.bootstrap.TaleConst.COMMENT_NO_AUDIT;
-import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_COMMENT_AUDIT;
 
 /**
  * @author biezhi

@@ -1,5 +1,9 @@
 package com.tale.service;
 
+import static com.tale.bootstrap.TaleConst.SQL_QUERY_ARTICLES;
+import static io.github.biezhi.anima.Anima.deleteById;
+import static io.github.biezhi.anima.Anima.select;
+
 import com.blade.exception.ValidatorException;
 import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Inject;
@@ -11,13 +15,10 @@ import com.tale.model.entity.Contents;
 import com.tale.model.entity.Relationships;
 import com.tale.model.params.ArticleParam;
 import com.vdurmont.emoji.EmojiParser;
+
 import io.github.biezhi.anima.Anima;
 import io.github.biezhi.anima.core.AnimaQuery;
 import io.github.biezhi.anima.page.Page;
-
-import static com.tale.bootstrap.TaleConst.SQL_QUERY_ARTICLES;
-import static io.github.biezhi.anima.Anima.deleteById;
-import static io.github.biezhi.anima.Anima.select;
 
 /**
  * 文章Service
@@ -133,7 +134,8 @@ public class ContentsService {
     }
 
     public Page<Contents> findArticles(ArticleParam articleParam) {
-        AnimaQuery<Contents> query = select().from(Contents.class).exclude(Contents::getContent);
+        @SuppressWarnings("unchecked")
+		AnimaQuery<Contents> query = select().from(Contents.class).exclude(Contents::getContent);
 
         if (StringKit.isNotEmpty(articleParam.getStatus())) {
             query.and(Contents::getStatus, articleParam.getStatus());

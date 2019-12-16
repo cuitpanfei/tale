@@ -1,5 +1,9 @@
 package com.tale.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.blade.ioc.annotation.Inject;
 import com.blade.mvc.annotation.GetRoute;
 import com.blade.mvc.annotation.Param;
@@ -12,11 +16,8 @@ import com.tale.model.entity.Contents;
 import com.tale.model.entity.Metas;
 import com.tale.service.ContentsService;
 import com.tale.service.MetasService;
-import io.github.biezhi.anima.page.Page;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import io.github.biezhi.anima.page.Page;
 
 /**
  * 分类、标签控制器

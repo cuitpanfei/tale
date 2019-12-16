@@ -1,9 +1,10 @@
 package com.tale.test.service;
 
+import org.junit.Test;
+
 import com.blade.ioc.annotation.Inject;
 import com.tale.service.ContentsService;
 import com.tale.test.BaseTest;
-import org.junit.Test;
 
 /**
  * @author biezhi

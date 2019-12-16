@@ -1,6 +1,12 @@
 package com.tale.controller;
 
 
+import static com.tale.bootstrap.TaleConst.CLASSPATH;
+import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_INSTALL;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.blade.Environment;
 import com.blade.ioc.annotation.Inject;
 import com.blade.mvc.annotation.GetRoute;
@@ -16,15 +22,7 @@ import com.tale.service.OptionsService;
 import com.tale.service.SiteService;
 import com.tale.utils.TaleUtils;
 import com.tale.validators.CommonValidator;
-import lombok.extern.slf4j.Slf4j;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static com.tale.bootstrap.TaleConst.CLASSPATH;
-import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_INSTALL;
-
-@Slf4j
 @Path("install")
 public class InstallController extends BaseController {
 

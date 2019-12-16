@@ -1,8 +1,9 @@
 package com.tale.test;
 
+import org.junit.runner.RunWith;
+
 import com.blade.test.BladeApplication;
 import com.tale.Application;
-import org.junit.runner.RunWith;
 
 /**
  * @author biezhi

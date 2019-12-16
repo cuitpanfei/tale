@@ -1,8 +1,8 @@
 package com.tale.model.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * 后台统计对象

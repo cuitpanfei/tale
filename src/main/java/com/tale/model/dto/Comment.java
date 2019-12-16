@@ -1,11 +1,12 @@
 package com.tale.model.dto;
 
+import java.util.List;
+
 import com.tale.model.entity.Comments;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.util.List;
 
 /**
  * Created by biezhi on 2017/2/24.

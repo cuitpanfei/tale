@@ -1,5 +1,15 @@
 package com.tale.bootstrap;
 
+import static com.tale.bootstrap.TaleConst.CLASSPATH;
+import static com.tale.bootstrap.TaleConst.OPTION_SAFE_REMEMBER_ME;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.blade.Blade;
 import com.blade.Environment;
 import com.blade.ioc.Ioc;
@@ -19,19 +29,10 @@ import com.tale.model.dto.RememberMe;
 import com.tale.model.dto.Types;
 import com.tale.service.OptionsService;
 import com.tale.service.SiteService;
+
 import io.github.biezhi.anima.Anima;
 import jetbrick.template.JetGlobalContext;
 import jetbrick.template.resolver.GlobalResolver;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.tale.bootstrap.TaleConst.CLASSPATH;
-import static com.tale.bootstrap.TaleConst.OPTION_SAFE_REMEMBER_ME;
 
 /**
  * Tale初始化进程

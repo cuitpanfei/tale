@@ -1,5 +1,9 @@
 package com.tale.validators;
 
+import static com.tale.bootstrap.TaleConst.MAX_TEXT_COUNT;
+import static com.tale.bootstrap.TaleConst.MAX_TITLE_COUNT;
+import static io.github.biezhi.anima.Anima.select;
+
 import com.blade.exception.ValidatorException;
 import com.blade.kit.StringKit;
 import com.blade.validator.Validators;
@@ -8,10 +12,6 @@ import com.tale.model.entity.Contents;
 import com.tale.model.params.InstallParam;
 import com.tale.model.params.LoginParam;
 import com.tale.utils.TaleUtils;
-
-import static com.tale.bootstrap.TaleConst.MAX_TEXT_COUNT;
-import static com.tale.bootstrap.TaleConst.MAX_TITLE_COUNT;
-import static io.github.biezhi.anima.Anima.select;
 
 /**
  * 验证器

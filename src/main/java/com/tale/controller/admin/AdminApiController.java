@@ -1,12 +1,35 @@
 package com.tale.controller.admin;
 
+import static com.tale.bootstrap.TaleConst.CLASSPATH;
+import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_CLOUD_CDN;
+import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_COMMENT_AUDIT;
+import static com.tale.bootstrap.TaleConst.OPTION_ALLOW_INSTALL;
+import static com.tale.bootstrap.TaleConst.OPTION_CDN_URL;
+import static com.tale.bootstrap.TaleConst.OPTION_SITE_THEME;
+import static io.github.biezhi.anima.Anima.delete;
+import static io.github.biezhi.anima.Anima.select;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.blade.Environment;
 import com.blade.ioc.annotation.Inject;
 import com.blade.kit.JsonKit;
 import com.blade.kit.StringKit;
 import com.blade.mvc.Const;
 import com.blade.mvc.WebContext;
-import com.blade.mvc.annotation.*;
+import com.blade.mvc.annotation.BodyParam;
+import com.blade.mvc.annotation.GetRoute;
+import com.blade.mvc.annotation.Path;
+import com.blade.mvc.annotation.PathParam;
+import com.blade.mvc.annotation.PostRoute;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.ui.RestResponse;
@@ -17,24 +40,31 @@ import com.tale.controller.BaseController;
 import com.tale.extension.Commons;
 import com.tale.model.dto.ThemeDto;
 import com.tale.model.dto.Types;
-import com.tale.model.entity.*;
-import com.tale.model.params.*;
-import com.tale.service.*;
+import com.tale.model.entity.Attach;
+import com.tale.model.entity.Comments;
+import com.tale.model.entity.Contents;
+import com.tale.model.entity.Logs;
+import com.tale.model.entity.Metas;
+import com.tale.model.entity.Options;
+import com.tale.model.entity.Users;
+import com.tale.model.params.AdvanceParam;
+import com.tale.model.params.ArticleParam;
+import com.tale.model.params.CommentParam;
+import com.tale.model.params.MetaParam;
+import com.tale.model.params.PageParam;
+import com.tale.model.params.TemplateParam;
+import com.tale.model.params.ThemeParam;
+import com.tale.service.CommentsService;
+import com.tale.service.ContentsService;
+import com.tale.service.MetasService;
+import com.tale.service.OptionsService;
+import com.tale.service.SiteService;
 import com.tale.validators.CommonValidator;
+
 import io.github.biezhi.anima.Anima;
 import io.github.biezhi.anima.enums.OrderBy;
 import io.github.biezhi.anima.page.Page;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-
-import static com.tale.bootstrap.TaleConst.*;
-import static io.github.biezhi.anima.Anima.delete;
-import static io.github.biezhi.anima.Anima.select;
 
 /**
  * @author biezhi
@@ -60,7 +90,7 @@ public class AdminApiController extends BaseController {
     private SiteService siteService;
 
     @GetRoute("logs")
-    public RestResponse sysLogs(PageParam pageParam) {
+    public RestResponse<?> sysLogs(PageParam pageParam) {
         return RestResponse.ok(select().from(Logs.class).order(Logs::getId, OrderBy.DESC).page(pageParam.getPage(), pageParam.getLimit()));
     }
 
@@ -73,7 +103,7 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("articles/:cid")
-    public RestResponse article(@PathParam String cid) {
+    public RestResponse<?> article(@PathParam String cid) {
         Contents contents = contentsService.getContents(cid);
         contents.setContent("");
         return RestResponse.ok(contents);
@@ -86,7 +116,7 @@ public class AdminApiController extends BaseController {
     }
 
     @PostRoute("article/new")
-    public RestResponse newArticle(@BodyParam Contents contents) {
+    public RestResponse<?> newArticle(@BodyParam Contents contents) {
         CommonValidator.valid(contents);
 
         Users users = this.user();
@@ -112,7 +142,7 @@ public class AdminApiController extends BaseController {
     }
 
     @PostRoute("article/update")
-    public RestResponse updateArticle(@BodyParam Contents contents) {
+    public RestResponse<?> updateArticle(@BodyParam Contents contents) {
         if (null == contents || null == contents.getCid()) {
             return RestResponse.fail("缺少参数，请重试");
         }
@@ -123,7 +153,7 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("articles")
-    public RestResponse articleList(ArticleParam articleParam) {
+    public RestResponse<?> articleList(ArticleParam articleParam) {
         articleParam.setType(Types.ARTICLE);
         articleParam.setOrderBy("created desc");
         Page<Contents> articles = contentsService.findArticles(articleParam);
@@ -131,7 +161,7 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("pages")
-    public RestResponse pageList(ArticleParam articleParam) {
+    public RestResponse<?> pageList(ArticleParam articleParam) {
         articleParam.setType(Types.PAGE);
         articleParam.setOrderBy("created desc");
         Page<Contents> articles = contentsService.findArticles(articleParam);
@@ -184,7 +214,7 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("comments")
-    public RestResponse commentList(CommentParam commentParam) {
+    public RestResponse<?> commentList(CommentParam commentParam) {
         Users users = this.user();
         commentParam.setExcludeUID(users.getUid());
 
@@ -241,7 +271,7 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("attaches")
-    public RestResponse attachList(PageParam pageParam) {
+    public RestResponse<?> attachList(PageParam pageParam) {
 
         Page<Attach> attachPage = select().from(Attach.class)
                 .order(Attach::getCreated, OrderBy.DESC)
@@ -270,19 +300,19 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("categories")
-    public RestResponse categoryList() {
+    public RestResponse<?> categoryList() {
         List<Metas> categories = siteService.getMetas(Types.RECENT_META, Types.CATEGORY, TaleConst.MAX_POSTS);
         return RestResponse.ok(categories);
     }
 
     @GetRoute("tags")
-    public RestResponse tagList() {
+    public RestResponse<?> tagList() {
         List<Metas> tags = siteService.getMetas(Types.RECENT_META, Types.TAG, TaleConst.MAX_POSTS);
         return RestResponse.ok(tags);
     }
 
     @GetRoute("options")
-    public RestResponse options() {
+    public RestResponse<?> options() {
         Map<String, String> options = optionsService.getOptions();
         return RestResponse.ok(options);
     }
@@ -354,7 +384,7 @@ public class AdminApiController extends BaseController {
     }
 
     @GetRoute("themes")
-    public RestResponse getThemes() {
+    public RestResponse<?> getThemes() {
         // 读取主题
         String         themesDir  = CLASSPATH + "templates/themes";
         File[]         themesFile = new File(themesDir).listFiles();

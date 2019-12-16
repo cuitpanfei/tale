@@ -1,9 +1,10 @@
 package com.tale.extension;
 
-import com.blade.kit.StringKit;
-import jetbrick.template.runtime.JetTagContext;
-
 import java.io.IOException;
+
+import com.blade.kit.StringKit;
+
+import jetbrick.template.runtime.JetTagContext;
 
 /**
  * 主题公共标签

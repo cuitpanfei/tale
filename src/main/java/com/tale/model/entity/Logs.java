@@ -1,10 +1,12 @@
 package com.tale.model.entity;
 
 import com.blade.kit.DateKit;
+
 import io.github.biezhi.anima.Model;
 import io.github.biezhi.anima.annotation.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
  * @author biezhi
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "t_logs")
