@@ -82,7 +82,7 @@ var vm = new Vue({
         });
 
         $vm.load();
-        refreshIntervalId = setInterval("vm.autoSave()", 10 * 1000);
+        // refreshIntervalId = setInterval("vm.autoSave()", 10 * 1000);
     },
     methods: {
         load: function () {
