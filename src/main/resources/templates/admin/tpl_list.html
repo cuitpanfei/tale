@@ -17,9 +17,9 @@
 
                     <button class="btn btn-primary waves-effect waves-light m-b-5" onclick="saveTpl()">保存修改</button>
 
-                    <div>
-                        <textarea id="tpl-preview" rows="20" cols="100%" placeholder="选择模板后进行修改"></textarea>
-                    </div>
+                    <pre>
+                        <code id="tpl-preview" contenteditable="true">选择模板后进行修改</code>
+                    </pre>
                 </div>
             </div>
         </div>
@@ -28,7 +28,11 @@
 
 #include('./footer.html')
 <script>
-    var tale = new $.tale();
+    document.addEventListener("DOMContentLoaded", function() {
+        var Highlighter = new window.Highlighter();
+        Highlighter.next('#tpl-preview');
+        Highlighter.underline();
+    });
 
     var tale = new $.tale();
     var vm = new Vue({
@@ -69,21 +73,21 @@
         var fileName = obj.value;
         if (fileName && fileName != '') {
             $.get('/admin/template/content', {fileName: fileName}, function (data) {
-                $('#tpl-preview').val(data);
+                $('#tpl-preview').text(data);
             });
         } else {
-            $('#tpl-preview').val('');
+            $('#tpl-preview').text('');
         }
     }
 
     function saveTpl() {
-        var fileName = $('#tplSelect').val();
-        if (fileName && fileName != '') {
+        var fileName = $('#tplSelect').text();
+        if (fileName && fileName !== '') {
             tale.post({
                 url: '/admin/api/template/save',
                 data: {
                     fileName: fileName,
-                    content: $('#tpl-preview').val()
+                    content: $('#tpl-preview').text()
                 },
                 success: function (result) {
                     if (result && result.success) {
