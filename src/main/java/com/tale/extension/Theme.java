@@ -1,5 +1,7 @@
 package com.tale.extension;
 
+import static com.tale.extension.Commons.site_option;
+import static com.tale.extension.Commons.site_url;
 import static io.github.biezhi.anima.Anima.select;
 
 import java.io.UnsupportedEncodingException;
@@ -51,7 +53,7 @@ public final class Theme {
         if (null != value) {
             return value.toString();
         }
-        return Commons.site_option("site_keywords");
+        return site_option("site_keywords");
     }
 
     /**
@@ -65,7 +67,7 @@ public final class Theme {
         if (null != value) {
             return value.toString();
         }
-        return Commons.site_option("site_description");
+        return site_option("site_description");
     }
 
     /**
@@ -81,7 +83,7 @@ public final class Theme {
         if (null != value) {
             p = value.toString() + " - ";
         }
-        return p + Commons.site_option("site_title", "Tale 博客");
+        return p + site_option("site_title", "Tale 博客");
     }
 
     /**
@@ -112,7 +114,7 @@ public final class Theme {
      * @return
      */
     public static String permalink(Integer cid, String slug) {
-        return Commons.site_url("/article/" + (StringKit.isNotBlank(slug) ? slug : cid.toString()));
+        return site_url("/article/" + (StringKit.isNotBlank(slug) ? slug : cid.toString()));
     }
 
     /**
@@ -204,8 +206,10 @@ public final class Theme {
         if (StringKit.isNotBlank(categories)) {
             String[]     arr  = categories.split(",");
             StringBuffer sbuf = new StringBuffer();
+            String siteUrl = site_option("site_url");
             for (String c : arr) {
-                sbuf.append("<a href=\"/category/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
+                String category = String.format("<a href=\"%s/category/%s\">%s</a>",siteUrl, URLEncoder.encode(c, "UTF-8"), c);
+                sbuf.append(category);
             }
             return sbuf.toString();
         }
@@ -223,8 +227,10 @@ public final class Theme {
         if (StringKit.isNotBlank(contents.getTags())) {
             String[]     arr  = contents.getTags().split(",");
             StringBuffer sbuf = new StringBuffer();
+            String siteUrl = site_option("site_url");
             for (String c : arr) {
-                sbuf.append(split).append("<a href=\"/tag/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
+                String tag = String.format("<a href=\"%s/category/%s\">%s</a>",siteUrl, URLEncoder.encode(c, "UTF-8"), c);
+                sbuf.append(split).append(tag);
             }
             return split.length() > 0 ? sbuf.substring(split.length() - 1) : sbuf.toString();
         }
@@ -612,7 +618,7 @@ public final class Theme {
      * @return
      */
     public static String social_link(String type) {
-        String id = Commons.site_option("social_" + type);
+        String id = site_option("social_" + type);
         switch (type) {
             case "github":
                 return "https://github.com/" + id;
