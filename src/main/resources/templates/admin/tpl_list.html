@@ -76,7 +76,7 @@
 
     function showContent(obj) {
         var fileName = obj.value;
-        if (fileName && fileName != '') {
+        if (fileName && fileName !== '') {
             $.get('/admin/template/content', {fileName: fileName}, function (data) {
                 $('#tpl-preview').text(data);
             });
@@ -86,7 +86,7 @@
     }
 
     function saveTpl() {
-        var fileName = $('#tplSelect').text();
+        var fileName = $('#tplSelect').val();
         if (fileName && fileName !== '') {
             tale.post({
                 url: '/admin/api/template/save',
