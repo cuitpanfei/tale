@@ -1,4 +1,9 @@
 #include('./header.html',{has_sub:'other', active:'template', title:'编辑模板'})
+<style type="text/css">
+    pre code#tpl-preview {
+        white-space: pre;
+    }
+</style>
 <div id="app" class="row" v-cloak>
     <loading :active.sync="isLoading" :can-cancel="true"></loading>
     <div class="col-lg-12">
