@@ -134,8 +134,16 @@ public class ContentsService {
     }
 
     public Page<Contents> findArticles(ArticleParam articleParam) {
+        return findArticles(articleParam,true);
+    }
+
+
+    public Page<Contents> findArticles(ArticleParam articleParam, boolean withMapping) {
         @SuppressWarnings("unchecked")
-		AnimaQuery<Contents> query = select().from(Contents.class).exclude(Contents::getContent);
+        AnimaQuery<Contents> query = select().from(Contents.class);
+        if(withMapping){
+            query.exclude(Contents::getContent);
+        }
 
         if (StringKit.isNotEmpty(articleParam.getStatus())) {
             query.and(Contents::getStatus, articleParam.getStatus());
@@ -152,7 +160,10 @@ public class ContentsService {
         query.and(Contents::getType, articleParam.getType());
         query.order(articleParam.getOrderBy());
         Page<Contents> articles = query.page(articleParam.getPage(), articleParam.getLimit());
-        return articles.map(this::mapContent);
+        if(withMapping){
+            articles.map(this::mapContent);
+        }
+        return articles;
     }
 
     private Contents mapContent(Contents contents) {
