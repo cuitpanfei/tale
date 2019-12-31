@@ -2,9 +2,11 @@ package com.tale.controller.api;
 
 
 import com.blade.ioc.annotation.Inject;
+import com.blade.kit.JsonKit;
 import com.blade.mvc.annotation.GetRoute;
 import com.blade.mvc.annotation.Path;
 import com.blade.mvc.ui.RestResponse;
+import com.tale.model.dto.PostDto;
 import com.tale.model.dto.Types;
 import com.tale.model.entity.Contents;
 import com.tale.model.params.ArticleParam;
@@ -16,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
-import static com.tale.extension.Theme.intro;
-import static com.tale.extension.Theme.show_thumb;
+import static com.tale.extension.Commons.site_url;
+import static com.tale.extension.Theme.*;
 
 @Slf4j
 @Path(value = "blog/api", restful = true)
@@ -35,7 +37,7 @@ public class IndexApiController  {
         articleParam.setType(Types.ARTICLE);
         articleParam.setOrderBy("created desc");
         Page<Contents> articles = contentsService.findArticles(articleParam,false);
-        articles.getRows().forEach(article->{
+        Page<PostDto> post = articles.map(article->{
             String content = article.getContent();
             if(StringUtil.isNullOrEmpty(article.getThumbImg())) {
                 article.setThumbImg(show_thumb(article));
@@ -43,7 +45,13 @@ public class IndexApiController  {
             if(Objects.nonNull(content)){
                 article.setContent(intro(content,75)+"……");
             }
+            String info = JsonKit.toString(article);
+            PostDto postDto = JsonKit.formJson(info, PostDto.class);
+            postDto.setIntro(article.getContent());
+            postDto.setIcon(show_icon(article.getCid()));
+            postDto.setUrl(permalink(article));
+            return postDto;
         });
-        return RestResponse.ok(articles);
+        return RestResponse.ok(post);
     }
 }
