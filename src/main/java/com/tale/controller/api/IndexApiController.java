@@ -5,6 +5,8 @@ import com.blade.ioc.annotation.Inject;
 import com.blade.kit.JsonKit;
 import com.blade.mvc.annotation.GetRoute;
 import com.blade.mvc.annotation.Path;
+import com.blade.mvc.annotation.PathParam;
+import com.blade.mvc.http.Response;
 import com.blade.mvc.ui.RestResponse;
 import com.tale.model.dto.PostDto;
 import com.tale.model.dto.Types;
@@ -22,7 +24,7 @@ import static com.tale.extension.Commons.site_url;
 import static com.tale.extension.Theme.*;
 
 @Slf4j
-@Path(value = "blog/api", restful = true)
+@Path(value = "open/api", restful = true)
 public class IndexApiController  {
 
     @Inject
@@ -53,5 +55,18 @@ public class IndexApiController  {
             return postDto;
         });
         return RestResponse.ok(post);
+    }
+
+    @GetRoute("article/info/:cid")
+    public void articleInfo(@PathParam String cid, Response response) {
+        Contents contents = contentsService.getContents(cid);
+        contents.setContent("");
+        response.json(contents);
+    }
+
+    @GetRoute("article/content/:cid")
+    public void articleContent(@PathParam String cid, Response response) {
+        Contents contents = contentsService.getContents(cid);
+        response.text(contents.getContent());
     }
 }
