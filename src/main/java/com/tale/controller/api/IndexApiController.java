@@ -38,6 +38,7 @@ public class IndexApiController  {
     public RestResponse articles(ArticleParam articleParam){
         articleParam.setType(Types.ARTICLE);
         articleParam.setOrderBy("created desc");
+        articleParam.setStatus("publish");
         Page<Contents> articles = contentsService.findArticles(articleParam,false);
         Page<PostDto> post = articles.map(article->{
             String content = article.getContent();
